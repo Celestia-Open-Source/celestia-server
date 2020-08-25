@@ -36,10 +36,6 @@ require('./config/passport')(passport);
 // Routes
 app.use('/api/users', users);
 
-// home
-app.get('/', (req, res) => {
-	res.send('hello world')
-})
 
 const port = process.env.PORT || 5000;
 
