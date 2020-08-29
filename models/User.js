@@ -27,6 +27,12 @@ const UserSchema = new mongoose.Schema({
 			ref: 'Post'
 		}
 	],
+	reacted: [
+		{
+			type: mongoose.Schema.Types.ObjectId,
+			ref: 'Post'
+		}
+	],
 	avatarUrl: String,
 	githubId: Number,
 });
