@@ -12,7 +12,12 @@ const ChannelSchema = mongoose.Schema({
             ref: "User",
         },
     ],
-    public: Boolean,
+    created: {
+        type: Date,
+        required: true,
+        default: Date.now
+    },
+    isPublic: Boolean,
 })
 
 const model = mongoose.model("Channel", ChannelSchema);
