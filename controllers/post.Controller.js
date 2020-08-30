@@ -1,7 +1,7 @@
 const createError = require('http-errors');
 const mongoose = require('mongoose');
 
-const Post = require('../Models/Post.model');
+const Post = require('../models/Post');
 
 module.exports = {
     getAllPosts: async (req, res, next) => {
@@ -14,8 +14,12 @@ module.exports = {
     },
 
     createNewPost: async (req, res, next) => {
+        console.log(req)
         try {
             const post = new Post(req.body);
+            // TODO : this needs to uncommented once auth middleware is setup
+            const user = req.user
+            post.author = user._id
             const result = await post.save();
             res.send(result);
         } catch (error) {
