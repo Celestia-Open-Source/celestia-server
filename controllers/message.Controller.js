@@ -5,9 +5,36 @@ const Message = require('./../models/Message')
 
 module.exports = {
 
+    getAllMessages: async (req, res, next) => {
+        try {
+            const postId = req.params.postId
+
+            const post = await Post.findById(postId)
+            if (!post) {
+                return console.log("Post not found")
+            }
+            // not sure if this works
+            const channel_id = post.Channel
+            const results = await Message.find({ channel: channel_id }, { __v: 0 });
+            if (!results) {
+                return console.log("No messages found . Error or Empty")
+            }
+            res.send(results);
+        } catch (error) {
+            console.log(error.message);
+        }
+    },
+
+
     createNewMessage: async (req, res, next) => {
         try {
-            const message = new Message(req.body);
+            const postId = req.params.postId
+            const post = await Post.findById(postId)
+            if (!post) {
+                return console.log("No post found")
+            }
+            const channel_id = post.channel
+            const message = new Message({ ...req.body, channel: channel_id });
             const result = await message.save();
             res.send(result);
         } catch (error) {
@@ -23,7 +50,7 @@ module.exports = {
 
     updateAMessage: async (req, res, next) => {
         try {
-            const id = req.params.id;
+            const id = req.params.messageId;
             const updates = req.body;
             const options = { new: true };
 
@@ -43,7 +70,7 @@ module.exports = {
     },
 
     deleteAMessage: async (req, res, next) => {
-        const id = req.params.id;
+        const id = req.params.messageId;
         try {
             const result = await Message.findByIdAndDelete(id);
             // console.log(result);
