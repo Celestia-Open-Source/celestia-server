@@ -21,18 +21,12 @@ const UserSchema = new mongoose.Schema({
 		type: Date,
 		default: Date.now
 	},
-	posts: [
-		{
-			type: mongoose.Schema.Types.ObjectId,
-			ref: 'Post'
-		}
-	],
-	reacted: [
-		{
-			type: mongoose.Schema.Types.ObjectId,
-			ref: 'Post'
-		}
-	],
+	// liked: [
+	// 	{
+	// 		type: mongoose.Schema.Types.ObjectId,
+	// 		ref: 'Post'
+	// 	}
+	// ],
 	avatarUrl: String,
 	githubId: Number,
 });

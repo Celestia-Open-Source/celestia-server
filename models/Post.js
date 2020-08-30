@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const Schema = mongoose.Schema
 
 const PostSchema = mongoose.Schema({
     title: {
@@ -8,14 +9,16 @@ const PostSchema = mongoose.Schema({
     body: {
         type: Schema.Types.String,
     },
-    user: {
-        type: mongoose.Schema.Types.ObjectId,
+    author: {
+        type: Schema.Types.ObjectId,
+        // required: true,
         ref: 'User'
     },
     channel: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: Schema.Types.ObjectId,
         ref: 'Channel'
-    }
+    },
+    tags: String,
 })
 
 const model = mongoose.model("Post", PostSchema)
